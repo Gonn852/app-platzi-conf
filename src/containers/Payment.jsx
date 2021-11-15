@@ -7,7 +7,7 @@ import { PayPalButton } from 'react-paypal-button-v2';
 const Payment = () => {
     const history = useHistory();
     const {state, addNewOrder} = useContext(AppContext);
-    const {cart} = state;
+    const {cart, buyer} = state;
 
     const paypalOptions = {
         clientId: 'access_token$sandbox$6h8m647mhk8h9chy$410c7d8c3b8128bdba0f55aa2be772ad',
@@ -29,15 +29,16 @@ const Payment = () => {
     const handlePaymentSuccess = (data) => {
         console.log(data);
         if (data.status === 'COMPLETED') {
-        const newOrder = {
+          const newOrder = {
             buyer,
             product: cart,
-            payment: data,
-        };
-        addNewOrder(newOrder);
-        history.push('/checkout/success');
+            payment: data
+          }
+          addNewOrder(newOrder);
+          history.push('/checkout/success')
         }
-    }
+      }
+    
 
     return(
         <div className="Payment">
@@ -60,10 +61,9 @@ const Payment = () => {
                         paypalOptions={paypalOptions}
                         buttonStyles={buttonStyles}
                         amount={handleSumTotal()}
-                        onPaymentStart={() => console.log('Start Payment')}
-                        onPaymentSuccess={(data) => handlePaymentSuccess(data)}
-                        onPaymentError={(error) => console.log(error)}
-                        onPaymentCancel={(data) => console.log(data)}
+                        onSuccess={(data) => handlePaymentSuccess(data)}
+                        onError={(error) => console.log(error)}
+                        onCancel={(data) => console.log(data)}
                     />
                 </div>
             </div>
