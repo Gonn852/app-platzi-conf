@@ -90,3 +90,7 @@ input {
     display: block;
     outline: none;
 }
+
+.information-top{
+  margin-top: 15px;
+}

@@ -11,7 +11,6 @@ import Layout from '../components/Layout';
 import AppContext from '../context/AppContext';
 import useInitialState from '../hooks/useInitialState';
 
-import '../styles/components/Layout.css'
 
 
 const App = () => {
