@@ -16,22 +16,29 @@ import '../styles/components/Layout.css'
 
 const App = () => {
     const initialState = useInitialState();
+    const isEmpty = Object.keys(initialState.products).length;
 
     return(
-        <AppContext.Provider value={initialState}>
-            <BrowserRouter>
-                <Layout>
-                    <Switch>
-                        <Route exact path="/" component={Home}></Route>
-                        <Route exact path="/checkout" component={Checkout}></Route>
-                        <Route exact path="/checkout/information" component={Information}></Route>
-                        <Route exact path="/checkout/payment" component={Payment}></Route>
-                        <Route exact path="/checkout/success" component={Success}></Route>
-                        <Route component={NotFound}></Route>
-                    </Switch>
-                </Layout>
-            </BrowserRouter>    
-        </AppContext.Provider>  
+        <>
+        {isEmpty > 0 ? (
+            <AppContext.Provider value={initialState}>
+                <BrowserRouter>
+                    <Layout>
+                        <Switch>
+                            <Route exact path="/" component={Home}></Route>
+                            <Route exact path="/checkout" component={Checkout}></Route>
+                            <Route exact path="/checkout/information" component={Information}></Route>
+                            <Route exact path="/checkout/payment" component={Payment}></Route>
+                            <Route exact path="/checkout/success" component={Success}></Route>
+                            <Route component={NotFound}></Route>
+                        </Switch>
+                    </Layout>
+                </BrowserRouter>    
+            </AppContext.Provider>
+        ):
+        <h1>Cargando</h1>}
+        </>
+
     )
 }
 
