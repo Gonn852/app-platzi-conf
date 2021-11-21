@@ -4,3 +4,11 @@
 .Success-map {
   margin: 10px 0 0 0;
 }
+.success-top {
+  margin-top: 15px;
+}
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}

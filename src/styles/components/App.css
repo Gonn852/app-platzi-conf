@@ -2,3 +2,8 @@ h1 {
   font-size: 30px;
   color: blue;
 }
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}

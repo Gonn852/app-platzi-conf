@@ -2,13 +2,19 @@ import React,{useRef, useContext, useState} from 'react'
 import { Link, useHistory } from 'react-router-dom';
 import '../styles/components/Information.css'
 import AppContext from '../context/AppContext';
-import { Badge, Button, Form, FloatingLabel } from 'react-bootstrap';
+import {Button, Form, FloatingLabel, Alert } from 'react-bootstrap';
 
 const Information = () => {
     const history = useHistory();
     const {state, addToBuyer} = useContext(AppContext);
     const {cart} = state;
     const form = useRef(null);
+
+    const handleSumTotal = () => {
+        const reducer = (accumulator, currentValue) => accumulator + currentValue.price;
+        const sum = cart.reduce(reducer,0);
+        return sum;
+    }
 
     const handleSubmit = (event) => {
         event.preventDefault(); 
@@ -29,10 +35,10 @@ const Information = () => {
         }
 
     return(
-        <div className="container information-top">
+        <div className="container">
             <div className="row">
-                <div className="col-xs-12 col-sm-12 col-md-9 col-lg-9">                
-                    <h2><Badge bg="secondary">Informacion de contacto</Badge></h2>
+                <div className="col-xs-12 col-sm-12 col-md-9 col-lg-9 information-top border-right">                
+                    <Alert variant="dark">Contact information</Alert>
                         <Form ref={form} onSubmit={handleSubmit}>
                             <FloatingLabel controlId="floatingInput" label="Name">
                                 <Form.Control type="text" placeholder="Name" name="name" required/>
@@ -56,23 +62,23 @@ const Information = () => {
                                 <Form.Control type="text" placeholder="State" name="state" required/>
                             </FloatingLabel>
                             <FloatingLabel controlId="floatingInput" label="CP">
-                                <Form.Control type="text" placeholder="CP" name="cp" required/>
+                                <Form.Control type="number" placeholder="CP" name="cp" required/>
                             </FloatingLabel>
                             <FloatingLabel controlId="floatingInput" label="Phone">
                                 <Form.Control type="text" placeholder="Phone" name="phone" required/>
                             </FloatingLabel>
                             <div className="Information-buttons">
                                 <div className="Information-back">
-                                    <Button variant="primary" type="button"><Link to="/checkout">Regresar</Link></Button>
+                                    <Button variant="dark" type="button" onClick={() => history.push('/checkout') }>To return</Button>
                                 </div>
                                 <div className="Information-next">
-                                    <Button variant="primary" type="submit" >Pagar</Button>
+                                    <Button variant="warning" type="submit">Pay</Button>
                                 </div>
                             </div>
                         </Form>
                 </div>
-                <div className="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-                <h2><Badge bg="secondary">Pedido:</Badge></h2>
+                <div className="col-xs-12 col-sm-12 col-md-3 col-lg-3 information-top">
+                <Alert variant="dark">Order</Alert>
                     {cart.map((item) => (
                     <div className="Information-item" key={item.title}>
                         <div className="Information-element">
@@ -81,6 +87,9 @@ const Information = () => {
                         </div>
                     </div>
                     ))}
+                    {cart.length > 0 &&
+                        <Alert className="information-top" variant="warning"><strong>Total price: ${handleSumTotal()}</strong></Alert>
+                    }
                 </div>
             </div>
         </div>

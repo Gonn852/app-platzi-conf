@@ -32,3 +32,19 @@
 .Payment-element h4 {
   margin: 0;
 }
+.payment-top{
+  margin-top: 15px;
+}
+.payment-bottom{
+  margin-bottom: 15px;
+}
+.border-right{
+  border-right: solid;
+  border-color: gray;
+}
+
+@media (max-width: 768px) {
+  .border-right{
+    border-right: none;
+  }
+}

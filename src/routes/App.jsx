@@ -1,5 +1,6 @@
 import React from 'react'
 import {BrowserRouter, Switch, Route} from 'react-router-dom'
+import { Spinner } from 'react-bootstrap';
 
 import Home from '../containers/Home';
 import Checkout from '../containers/Checkout';
@@ -10,6 +11,7 @@ import NotFound from '../containers/NotFound';
 import Layout from '../components/Layout';
 import AppContext from '../context/AppContext';
 import useInitialState from '../hooks/useInitialState';
+import '../styles/components/App.css'
 
 
 
@@ -35,7 +37,12 @@ const App = () => {
                 </BrowserRouter>    
             </AppContext.Provider>
         ):
-        <h1>Cargando</h1>}
+        <div className="center">
+            <Spinner animation="border" role="status">
+                <span className="visually-hidden">Loading...</span>
+            </Spinner>
+        </div>
+        }
         </>
 
     )

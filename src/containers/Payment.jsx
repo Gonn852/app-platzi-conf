@@ -3,10 +3,11 @@ import AppContext from '../context/AppContext';
 import '../styles/components/Payment.css'
 import { useHistory } from 'react-router-dom';
 import { PayPalButton } from 'react-paypal-button-v2';
+import { Alert } from 'react-bootstrap';
 
 const Payment = () => {
     const history = useHistory();
-    const {state, addNewOrder} = useContext(AppContext);
+    const {state, addNewOrder, successOrder} = useContext(AppContext);
     const {cart, buyer} = state;
 
     const paypalOptions = {
@@ -35,28 +36,35 @@ const Payment = () => {
             payment: data
           }
           addNewOrder(newOrder);
+          successOrder();
           history.push('/checkout/success')
         }
       }
     
 
     return(
-        <div className="Payment">
-            <div className="Payment-content">
-                <h3>Resumen del pedido: </h3>
-                {cart.map((item) => (
-                <div className='Payment-item' key={item.title}>
-                    <div className='Payment-element'>
-                    <h4>{item.title}</h4>
-                    <span>
-                        $
-                        {' '}
-                        {item.price}
-                    </span>
-                    </div>
+        <div className="container">
+            <div className="row">
+                <div className="col-xs-12 col-sm-12 col-md-7 col-lg-7 payment-top border-right">
+                    <Alert variant="dark">Order summary</Alert>
+                        {cart.map((item) => (
+                        <div className='Payment-item payment-bottom' key={item.title}>
+                            <div className='Payment-element'>
+                            <h4>{item.title}</h4>
+                            <span>
+                                $
+                                {' '}
+                                {item.price}
+                            </span>
+                            </div>
+                        </div>
+                        ))}
+                    {cart.length > 0 &&
+                        <Alert className="payment-top" variant="warning"><strong>Total price: ${handleSumTotal()}</strong></Alert>
+                    }    
                 </div>
-                ))}
-                <div className="Payment-button">
+                <div className="col-xs-12 col-sm-12 col-md-5 col-lg-5 payment-top text-center">
+                    <Alert variant="dark">Pay</Alert>
                     <PayPalButton 
                         paypalOptions={paypalOptions}
                         buttonStyles={buttonStyles}
@@ -64,6 +72,7 @@ const Payment = () => {
                         onSuccess={(data) => handlePaymentSuccess(data)}
                         onError={(error) => console.log(error)}
                         onCancel={(data) => console.log(data)}
+                        className="payment-top"
                     />
                 </div>
             </div>

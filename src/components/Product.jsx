@@ -11,9 +11,9 @@ const Product = ({product, handleAddToCart}) => {
                     <Card.Img variant="top" src={product.image} height="200px"/>
                     <Card.Body>
                         <Card.Title>{product.title}</Card.Title>
-                        <Card.Title>{product.price}</Card.Title>
+                        <Card.Title>$ {product.price}</Card.Title>
                         <Card.Text>{product.description}</Card.Text>
-                        <Button variant="primary" type="button" onClick={handleAddToCart(product)}>Buy</Button>
+                        <Button variant="dark" className=" button-size col-xs-12 col-sm-12 col-md-12 col-lg-12" type="button" onClick={handleAddToCart(product)}>Buy</Button>
                     </Card.Body>
                 </Card>
             </div>  

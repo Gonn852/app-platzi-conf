@@ -7,12 +7,10 @@ const useAddress = (address) => {
 
     useEffect(async () => {
         const response = await axios.get(API);
-        console.log(response.data.data[0])
         setMap({
             "lat": response.data.data[0].latitude,
             "lng": response.data.data[0].longitude
         })
-        console.log(map)
     }, [])
 
     return map;

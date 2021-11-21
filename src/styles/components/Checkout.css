@@ -59,3 +59,13 @@ a {
 .checkout-top{
     margin-top: 15px;
 }
+.border-right{
+  border-right: solid;
+  border-color: gray;
+}
+
+@media (max-width: 768px) {
+  .border-right{
+    border-right: none;
+  }
+}

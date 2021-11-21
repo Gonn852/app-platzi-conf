@@ -38,11 +38,19 @@ const useInitialState = () => {
         })
     }
 
+    const successOrder = payload => {
+        setState({
+            ...state,
+            cart: []
+        })
+    }
+
     return {
         addToCart,
         removeFromCart,
         addNewOrder,
         addToBuyer,
+        successOrder,
         products,
         state
     }
